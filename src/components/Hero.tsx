@@ -4,7 +4,7 @@ export default function Hero() {
     // Debug Supabase env variables
   useEffect(() => {
     console.log("SUPABASE_URL =", import.meta.env.VITE_SUPABASE_URL);
-    console.log("SUPABASE_ANON_KEY=", import.meta.env.VITE_SUPABASE_ANON_KEY);
+    console.log("SUPABASE_ANON_KEY =", import.meta.env.VITE_SUPABASE_ANON_KEY);
   }, []);
   
   return (
