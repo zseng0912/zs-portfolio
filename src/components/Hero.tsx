@@ -12,7 +12,7 @@ export default function Hero() {
         <div className="flex flex-col items-center text-center space-y-6">
           <div className="animate-scale-in w-32 h-32 rounded-full overflow-hidden shadow-2xl">
             <img
-              src="/assets/avatar.png"
+              src="https://qhglpmoavnpwjkbyyilr.supabase.co/storage/v1/object/public/portfolio/portfolio-image.png"
               alt="Profile"
               className="w-full h-full object-cover"
             />
