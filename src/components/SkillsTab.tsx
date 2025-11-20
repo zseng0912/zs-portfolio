@@ -55,7 +55,7 @@ function SkillItem({ skill }: SkillItemProps) {
 export default function SkillsTab() {
   const [skills, setSkills] = useState<Skill[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const categories = ['Frontend', 'Backend', 'DevOps'];
+  const categories = ['Frontend', 'Backend'];
 
   useEffect(() => {
     let mounted = true;
