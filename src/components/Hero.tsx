@@ -1,12 +1,6 @@
 import { Github, Linkedin, Mail, Download, MessageCircle, ArrowDown } from 'lucide-react';
 
 export default function Hero() {
-    // Debug Supabase env variables
-  useEffect(() => {
-    console.log("SUPABASE_URL =", import.meta.env.VITE_SUPABASE_URL);
-    console.log("SUPABASE_ANON_KEY =", import.meta.env.VITE_SUPABASE_ANON_KEY);
-  }, []);
-  
   return (
     <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white py-14 px-6 relative overflow-hidden">
       {/* <div className="absolute inset-0 overflow-hidden">
