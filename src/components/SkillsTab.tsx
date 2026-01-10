@@ -20,10 +20,10 @@ const sampleSkills: Skill[] = [
   { id: '6', name: 'Python', category: 'Backend', level: 80 },
   { id: '7', name: 'PostgreSQL', category: 'Backend', level: 80 },
   { id: '8', name: 'MongoDB', category: 'Backend', level: 75 },
-  { id: '9', name: 'AWS', category: 'DevOps', level: 70 },
-  { id: '10', name: 'Docker', category: 'DevOps', level: 80 },
-  { id: '11', name: 'Git', category: 'DevOps', level: 90 },
-  { id: '12', name: 'CI/CD', category: 'DevOps', level: 75 },
+  { id: '9', name: 'LLM', category: 'AI', level: 70 },
+  { id: '10', name: 'RAG', category: 'DevOps', level: 80 },
+  { id: '11', name: 'LangChain', category: 'DevOps', level: 90 },
+  { id: '12', name: 'OpenAI', category: 'DevOps', level: 75 },
 ];
 
 const skillIcons: Record<string, React.ReactNode> = {
@@ -55,7 +55,7 @@ function SkillItem({ skill }: SkillItemProps) {
 export default function SkillsTab() {
   const [skills, setSkills] = useState<Skill[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const categories = ['Frontend', 'Backend'];
+  const categories = [ 'AI', 'Backend', 'Frontend'];
 
   useEffect(() => {
     let mounted = true;
