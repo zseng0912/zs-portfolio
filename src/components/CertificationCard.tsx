@@ -10,12 +10,23 @@ export default function CertificationCard({ certification }: CertificationCardPr
     <div className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
       <div className="h-40 overflow-hidden bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center relative">
         <div className="absolute inset-0 bg-gradient-to-t from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <Award className="w-20 h-20 text-blue-400 group-hover:scale-110 transition-transform duration-300 relative" />
+
+        {certification.image && (
+          <img
+            src={certification.image}
+            alt={certification.title}
+            className="w-24 h-24 object-contain group-hover:scale-110 transition-transform duration-300 relative"
+          />
+        )}
       </div>
+
       <div className="p-6">
-        <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{certification.title}</h3>
+        <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+          {certification.title}
+        </h3>
         <p className="text-slate-600 mb-1 font-semibold">{certification.issuer}</p>
         <p className="text-slate-500 text-sm mb-4">{certification.date}</p>
+
         {certification.credentialUrl && (
           <a
             href={certification.credentialUrl}
@@ -31,3 +42,4 @@ export default function CertificationCard({ certification }: CertificationCardPr
     </div>
   );
 }
+
