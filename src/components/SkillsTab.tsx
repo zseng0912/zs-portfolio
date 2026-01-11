@@ -63,7 +63,7 @@ interface SkillItemProps {
 function SkillItem({ skill }: SkillItemProps) {
   return (
     <div className="group bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-3">
         <div className="p-2 rounded-lg bg-slate-100 group-hover:bg-blue-50 transition">
           {skillIcons[skill.name] || (
             <CheckCircle2 className="w-5 h-5 text-slate-600" />
