@@ -71,19 +71,8 @@ function SkillItem({ skill }: SkillItemProps) {
         </div>
         <div className="flex-1">
           <p className="font-semibold text-slate-800">{skill.name}</p>
-          <p className="text-xs text-slate-500">{skill.category}</p>
+          {/* <p className="text-xs text-slate-500">{skill.category}</p> */}
         </div>
-        <span className="text-sm font-semibold text-slate-700">
-          {skill.level}%
-        </span>
-      </div>
-
-      {/* Progress bar */}
-      <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-700"
-          style={{ width: `${skill.level}%` }}
-        />
       </div>
     </div>
   );
