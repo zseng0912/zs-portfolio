@@ -5,6 +5,7 @@ import TabNavigation from './components/TabNavigation';
 import ProjectsTab from './components/ProjectsTab';
 import SkillsTab from './components/SkillsTab';
 import CertificationsTab from './components/CertificationsTab';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('projects');
@@ -18,6 +19,9 @@ function App() {
         {activeTab === 'skills' && <SkillsTab />}
         {activeTab === 'certifications' && <CertificationsTab />}
       </main>
+
+      <ScrollToTop />
+      
       <footer className="bg-slate-900 text-white py-8 text-center">
         <p className="text-slate-400">© 2025 Tan Zu Seng. All rights reserved.</p>
       </footer>
