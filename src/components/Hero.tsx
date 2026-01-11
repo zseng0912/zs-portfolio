@@ -30,7 +30,7 @@ export default function Hero() {
           </p>
           <div className="animate-slide-up flex flex-col sm:flex-row gap-4 pt-4">
             <a
-              href="https://qhglpmoavnpwjkbyyilr.supabase.co/storage/v1/object/public/portfolio/TanZuSeng_CV_2025.pdf"
+              href="https://qhglpmoavnpwjkbyyilr.supabase.co/storage/v1/object/public/portfolio/TANZUSENG_CV_RESUME_2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 justify-center shadow-lg hover:shadow-xl hover:scale-105"
