@@ -125,9 +125,6 @@ export default function SkillsTab() {
                   <h3 className="text-2xl font-bold text-slate-900">
                     {category}
                   </h3>
-                  <p className="text-sm text-slate-500">
-                    Average Proficiency: {getCategoryAvg(category)}%
-                  </p>
                 </div>
               </div>
 
