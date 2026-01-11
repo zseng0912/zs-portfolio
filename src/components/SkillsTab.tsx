@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { fetchSkills } from '../lib/data';
 
+/* ------------------ Fallback data ------------------ */
 const sampleSkills: Skill[] = [
   { id: '1', name: 'React', category: 'Frontend', level: 90 },
   { id: '2', name: 'TypeScript', category: 'Frontend', level: 85 },
@@ -21,41 +22,79 @@ const sampleSkills: Skill[] = [
   { id: '7', name: 'PostgreSQL', category: 'Backend', level: 80 },
   { id: '8', name: 'MongoDB', category: 'Backend', level: 75 },
   { id: '9', name: 'LLM', category: 'AI', level: 70 },
-  { id: '10', name: 'RAG', category: 'DevOps', level: 80 },
-  { id: '11', name: 'LangChain', category: 'DevOps', level: 90 },
-  { id: '12', name: 'OpenAI', category: 'DevOps', level: 75 },
+  { id: '10', name: 'RAG', category: 'AI', level: 80 },
+  { id: '11', name: 'LangChain', category: 'AI', level: 90 },
+  { id: '12', name: 'OpenAI', category: 'AI', level: 75 },
 ];
 
+/* ------------------ Skill Icons ------------------ */
 const skillIcons: Record<string, React.ReactNode> = {
-  'React': <Feather className="w-5 h-5 text-sky-500" />,
-  'TypeScript': <Braces className="w-5 h-5 text-blue-600" />,
+  React: <Feather className="w-5 h-5 text-sky-500" />,
+  TypeScript: <Braces className="w-5 h-5 text-blue-600" />,
   'Tailwind CSS': <Layers className="w-5 h-5 text-cyan-400" />,
   'Vue.js': <Feather className="w-5 h-5 text-green-500" />,
   'Node.js': <Server className="w-5 h-5 text-green-700" />,
-  'Python': <Terminal className="w-5 h-5 text-yellow-500" />,
-  'PostgreSQL': <Database className="w-5 h-5 text-blue-800" />,
-  'MongoDB': <Database className="w-5 h-5 text-green-700" />,
+  Python: <Terminal className="w-5 h-5 text-yellow-500" />,
+  PostgreSQL: <Database className="w-5 h-5 text-blue-800" />,
+  MongoDB: <Database className="w-5 h-5 text-green-700" />,
+};
+
+/* ------------------ Category Visuals ------------------ */
+const categoryMeta: Record<string, { color: string; icon: React.ReactNode }> = {
+  Frontend: {
+    color: 'from-blue-500 to-cyan-400',
+    icon: <Layers className="w-6 h-6 text-white" />,
+  },
+  Backend: {
+    color: 'from-green-500 to-emerald-400',
+    icon: <Server className="w-6 h-6 text-white" />,
+  },
+  AI: {
+    color: 'from-purple-500 to-pink-400',
+    icon: <Braces className="w-6 h-6 text-white" />,
+  },
 };
 
 interface SkillItemProps {
   skill: Skill;
 }
 
+/* ------------------ Skill Card ------------------ */
 function SkillItem({ skill }: SkillItemProps) {
   return (
-    <div className="flex items-center gap-3 group p-3 rounded-lg hover:bg-slate-100 transition">
-      {skillIcons[skill.name] || <CheckCircle2 className="w-5 h-5 text-slate-800" />}
-      <span className="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">
-        {skill.name}
-      </span>
+    <div className="group bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="p-2 rounded-lg bg-slate-100 group-hover:bg-blue-50 transition">
+          {skillIcons[skill.name] || (
+            <CheckCircle2 className="w-5 h-5 text-slate-600" />
+          )}
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold text-slate-800">{skill.name}</p>
+          <p className="text-xs text-slate-500">{skill.category}</p>
+        </div>
+        <span className="text-sm font-semibold text-slate-700">
+          {skill.level}%
+        </span>
+      </div>
+
+      {/* Progress bar */}
+      <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-700"
+          style={{ width: `${skill.level}%` }}
+        />
+      </div>
     </div>
   );
 }
 
+/* ------------------ Main Component ------------------ */
 export default function SkillsTab() {
   const [skills, setSkills] = useState<Skill[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const categories = [ 'AI', 'Backend', 'Frontend'];
+
+  const categories = ['AI', 'Backend', 'Frontend'];
 
   useEffect(() => {
     let mounted = true;
@@ -64,39 +103,63 @@ export default function SkillsTab() {
         const data = await fetchSkills();
         if (!mounted) return;
         setSkills(data.length ? data : sampleSkills);
-      } catch (e: any) {
+      } catch {
         if (!mounted) return;
         setError('Failed to load skills, showing sample content.');
         setSkills(sampleSkills);
       }
     })();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
+  const getCategoryAvg = (cat: string) => {
+    const items = (skills ?? sampleSkills).filter(s => s.category === cat);
+    if (!items.length) return 0;
+    return Math.round(items.reduce((a, b) => a + b.level, 0) / items.length);
+  };
+
   return (
-    <div className="py-16 px-6 bg-gradient-to-b from-slate-50 to-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-12">Technical Skills</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div className="py-20 px-6 bg-gradient-to-b from-slate-50 to-white">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-slate-900 mb-12">
+          Technical Skills
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {categories.map((category, index) => (
             <div
               key={category}
-              className="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 border border-slate-100"
-              style={{
-                animation: `slideUp 0.6s ease-out ${index * 0.1}s both`
-              }}
+              className="bg-white rounded-2xl shadow-lg p-8 border border-slate-100 hover:shadow-2xl transition"
+              style={{ animation: `slideUp 0.6s ease-out ${index * 0.1}s both` }}
             >
-              <h3 className="text-2xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-gradient-to-r from-blue-500 to-cyan-500 group-hover:border-blue-400">
-                {category}
-              </h3>
+              <div className="flex items-center gap-4 mb-8">
+                <div
+                  className={`p-3 rounded-xl bg-gradient-to-r ${categoryMeta[category].color}`}
+                >
+                  {categoryMeta[category].icon}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-900">
+                    {category}
+                  </h3>
+                  <p className="text-sm text-slate-500">
+                    Average Proficiency: {getCategoryAvg(category)}%
+                  </p>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {(skills ?? sampleSkills)
-                  .filter((skill) => skill.category === category)
+                  .filter(skill => skill.category === category)
                   .map((skill, idx) => (
                     <div
                       key={skill.id}
                       style={{
-                        animation: `slideUp 0.5s ease-out ${index * 0.1 + idx * 0.05}s both`
+                        animation: `slideUp 0.5s ease-out ${
+                          index * 0.1 + idx * 0.05
+                        }s both`,
                       }}
                     >
                       <SkillItem skill={skill} />
@@ -106,8 +169,9 @@ export default function SkillsTab() {
             </div>
           ))}
         </div>
+
         {error && (
-          <p className="text-amber-600 mt-6">{error}</p>
+          <p className="text-amber-600 mt-8 text-center">{error}</p>
         )}
       </div>
     </div>
