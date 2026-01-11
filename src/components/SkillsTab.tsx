@@ -27,16 +27,10 @@ const sampleSkills: Skill[] = [
   { id: '12', name: 'OpenAI', category: 'AI', level: 75 },
 ];
 
-/* ------------------ Skill Icons ------------------ */
-const skillIcons: Record<string, React.ReactNode> = {
-  React: <Feather className="w-5 h-5 text-sky-500" />,
-  TypeScript: <Braces className="w-5 h-5 text-blue-600" />,
-  'Tailwind CSS': <Layers className="w-5 h-5 text-cyan-400" />,
-  'Vue.js': <Feather className="w-5 h-5 text-green-500" />,
-  'Node.js': <Server className="w-5 h-5 text-green-700" />,
-  Python: <Terminal className="w-5 h-5 text-yellow-500" />,
-  PostgreSQL: <Database className="w-5 h-5 text-blue-800" />,
-  MongoDB: <Database className="w-5 h-5 text-green-700" />,
+const categoryItemIcons: Record<string, React.ReactNode> = {
+  Frontend: <Layers className="w-5 h-5 text-blue-500" />,
+  Backend: <Server className="w-5 h-5 text-green-600" />,
+  AI: <Braces className="w-5 h-5 text-purple-500" />,
 };
 
 /* ------------------ Category Visuals ------------------ */
@@ -64,15 +58,13 @@ function SkillItem({ skill }: SkillItemProps) {
   return (
     <div className="group bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
       <div className="flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-slate-100 group-hover:bg-blue-50 transition">
-          {skillIcons[skill.name] || (
+        <div className="p-2 rounded-lg bg-slate-100 group-hover:bg-slate-200 transition">
+          {categoryItemIcons[skill.category] || (
             <CheckCircle2 className="w-5 h-5 text-slate-600" />
           )}
         </div>
-        <div className="flex-1">
-          <p className="font-semibold text-slate-800">{skill.name}</p>
-          {/* <p className="text-xs text-slate-500">{skill.category}</p> */}
-        </div>
+
+        <p className="font-semibold text-slate-800">{skill.name}</p>
       </div>
     </div>
   );
